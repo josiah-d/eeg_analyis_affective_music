@@ -51,7 +51,7 @@ class Subj:
         data = self.data.get_data()
         df = pd.DataFrame(data).T
         df.columns = channels
-        self.data_df = df
+        self.data_df = df[::10]
     
     def define_epoch(self):
         df = self.events[self.events['trial_type'] == 788]
@@ -61,7 +61,7 @@ class Subj:
         df = self.data_df
         epoch_df = pd.DataFrame()
         for epoch in self.epochs:
-            temp_df = pd.DataFrame(df.iloc[int(epoch): int(epoch + 20000)])
+            temp_df = pd.DataFrame(df.iloc[int(epoch): int(epoch + 2000)])
             epoch_df = pd.concat([epoch_df, temp_df], axis=0)
         self.epochs_df = epoch_df
     
@@ -69,6 +69,6 @@ class Subj:
         df = self.data_df
         post_epoch_df = pd.DataFrame()
         for epoch in self.epochs:
-            temp_df = pd.DataFrame(df.iloc[int(epoch + 20000): int(epoch + 40000)])
+            temp_df = pd.DataFrame(df.iloc[int(epoch + 2000): int(epoch + 4000)])
             post_epoch_df = pd.concat([post_epoch_df, temp_df], axis=0)
         self.post_epochs_df = post_epoch_df

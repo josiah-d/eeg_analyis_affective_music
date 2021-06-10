@@ -54,16 +54,20 @@ def plot_corrs(subj_id):
     for i, trial in enumerate(trials):
         try:
             subj_trial = load_subjs.load_all_subjs_epochs(subj_id, trial)
-            if i == 0:
-                control_df = subj_trial.data_df
-            if i == 1:
-                epochs_df = subj_trial.epochs_df
-                post_epochs_df = subj_trial.post_epochs_df
-            if i == 6:
-                pd.concat([control_df, subj_trial.data_df], axis=0)
+            if i == 0 or i == 5:
+                if control_df.shape == (0, 0):
+                    control_df = subj_trial.data_df
+                else:
+                    control_df = pd.concat([control_df, subj_trial.data_df], axis=0)
             else:
-                pd.concat([epochs_df, subj_trial.epochs_df], axis=0)
-                pd.concat([post_epochs_df, subj_trial.post_epochs_df], axis=0)
+                if epochs_df.shape == (0, 0):
+                    epochs_df = subj_trial.epochs_df
+                else:
+                    epochs_df = pd.concat([epochs_df, subj_trial.epochs_df], axis=0)
+                if post_epochs_df.shape == (0, 0):
+                    post_epochs_df = subj_trial.post_epochs_df
+                else:
+                    post_epochs_df = pd.concat([post_epochs_df, subj_trial.post_epochs_df], axis=0)
         except FileNotFoundError:
             pass
     
@@ -78,3 +82,19 @@ def plot_corrs(subj_id):
     
     fig.suptitle(f'Correlation of EEG Data\nSubject: {subj_id}\nTrial: All')
     plt.savefig(f'../img/correlations_{subj_id}.jpg')
+
+
+def plot_corrs_all(subjs):
+    control_df, epochs_df, post_epochs_df = load_subjs.combine_subj_data(subjs)
+    
+    fig, ax = plt.subplots(3, figsize=(5,15))
+
+    sn.heatmap(control_df.corr(), annot=False, ax=ax[0])
+    ax[0].set_title('Without Music')
+    sn.heatmap(epochs_df.corr(), annot=False, ax=ax[1])
+    ax[1].set_title('During Music (20s)')
+    sn.heatmap(post_epochs_df.corr(), annot=False, ax=ax[2])
+    ax[2].set_title('Immediately Following Music (20s)')
+    
+    fig.suptitle(f'Correlation of EEG Data\nSubject: All\nTrial: All')
+    plt.savefig('../img/correlations_all.jpg')
