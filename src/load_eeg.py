@@ -1,5 +1,11 @@
+# imports
+import sys
+sys.path.insert(0, '..')
+
 import mne
 import pandas as pd
+
+from src import load_subjs, plot_eeg
 
 
 class Subj:
@@ -18,6 +24,8 @@ class Subj:
         self.events = None
         self.events_meta = None
         self.epochs = None
+        self.epochs_df = None
+        self.post_epochs_df = None
         
     def add_trialpath(self, trial_id):
         self.trial_id = trial_id
@@ -46,4 +54,21 @@ class Subj:
         self.data_df = df
     
     def define_epoch(self):
-        self.epochs = self.events[self.events['trial_type'] == 788]
+        df = self.events[self.events['trial_type'] == 788]
+        self.epochs = df['onset'].to_numpy() * 1000
+    
+    def create_epoch_df(self):
+        df = self.data_df
+        epoch_df = pd.DataFrame()
+        for epoch in self.epochs:
+            temp_df = pd.DataFrame(df.iloc[int(epoch): int(epoch + 20000)])
+            epoch_df = pd.concat([epoch_df, temp_df], axis=0)
+        self.epochs_df = epoch_df
+    
+    def create_post_epoch_df(self):
+        df = self.data_df
+        post_epoch_df = pd.DataFrame()
+        for epoch in self.epochs:
+            temp_df = pd.DataFrame(df.iloc[int(epoch + 20000): int(epoch + 40000)])
+            post_epoch_df = pd.concat([post_epoch_df, temp_df], axis=0)
+        self.post_epochs_df = post_epoch_df
