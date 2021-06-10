@@ -31,6 +31,7 @@ Josiah Duhaime
 * Even-numbered electrodes (2,4,6,8) refer to electrode placement on the right side of the head, whereas odd numbers (1,3,5,7) refer to those on the left
 * Each electrode placement site has a letter to identify the lobe, or area of the brain it is reading from: pre-frontal (Fp), frontal (F), temporal (T), parietal (P), occipital (O), and central (C)
 * There are also (Z) sites: A "Z" (zero) refers to an electrode placed on the midline sagittal plane of the skull, (FpZ, Fz, Cz, Oz) and is present mostly for reference/measurement points
+* Voltage is directional
 
 ### Description
 

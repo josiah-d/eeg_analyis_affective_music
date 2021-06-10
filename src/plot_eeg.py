@@ -73,11 +73,11 @@ def plot_corrs(subj_id):
     
     fig, ax = plt.subplots(3, figsize=(5,15))
 
-    sn.heatmap(control_df.corr(), annot=False, ax=ax[0])
+    sn.heatmap(control_df.corr(), center=0, annot=False, ax=ax[0], vmin=-1, vmax=1)
     ax[0].set_title('Without Music')
-    sn.heatmap(epochs_df.corr(), annot=False, ax=ax[1])
+    sn.heatmap(epochs_df.corr(), center=0, annot=False, ax=ax[1], vmin=-1, vmax=1)
     ax[1].set_title('During Music (20s)')
-    sn.heatmap(post_epochs_df.corr(), annot=False, ax=ax[2])
+    sn.heatmap(post_epochs_df.corr(), center=0, annot=False, ax=ax[2], vmin=-1, vmax=1)
     ax[2].set_title('Immediately Following Music (20s)')
     
     fig.suptitle(f'Correlation of EEG Data\nSubject: {subj_id}\nTrial: All')
@@ -89,12 +89,21 @@ def plot_corrs_all(subjs):
     
     fig, ax = plt.subplots(3, figsize=(5,15))
 
-    sn.heatmap(control_df.corr(), annot=False, ax=ax[0])
+    sn.heatmap(control_df.corr(), center=0, annot=False, ax=ax[0], vmin=-1, vmax=1)
     ax[0].set_title('Without Music')
-    sn.heatmap(epochs_df.corr(), annot=False, ax=ax[1])
+    sn.heatmap(epochs_df.corr(), center=0, annot=False, ax=ax[1], vmin=-1, vmax=1)
     ax[1].set_title('During Music (20s)')
-    sn.heatmap(post_epochs_df.corr(), annot=False, ax=ax[2])
+    sn.heatmap(post_epochs_df.corr(), center=0, annot=False, ax=ax[2], vmin=-1, vmax=1)
     ax[2].set_title('Immediately Following Music (20s)')
     
     fig.suptitle(f'Correlation of EEG Data\nSubject: All\nTrial: All')
     plt.savefig('../img/correlations_all.jpg')
+
+
+def eeg_hist(ax, data, x_min, x_max, y_lab, title, label=None, line_label=None):
+    ax.hist(data, bins=500, stacked=True, label=label)
+    ax.axvline(data.mean(), ymin=0, ymax=1, color='black', label=line_label)
+    ax.set_xlim(x_min, x_max)
+    ax.set_ylabel(y_lab)
+    ax.ticklabel_format(useOffset=False, style='plain')
+    ax.set_title(title)
