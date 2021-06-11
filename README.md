@@ -68,7 +68,9 @@ The data was mainly in a European Data Format (EDF) which is a common file forma
 
 Initially, each subjects' data was plotted to assess the quality and shape of the sensor data.
 
-![Subj 1, Trial 1](img/all_leads_sub-01_task-run1.png)
+![Subj 1, Trial 1](img/all_leads/all_leads_sub-01_task-run1.jpg)
+
+Figure 1: EEG Data, Subject: sub-01, Trial: task-run1
 
 ---
 
