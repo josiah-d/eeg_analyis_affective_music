@@ -8,6 +8,22 @@ from src import load_eeg, plot_eeg
 
 
 def load_all_subjs_epochs(subj_id, trial_id, plot=False):
+    """Creates a class instance of a subject and trial.
+
+    Parameters
+    ----------
+    subj_id : str
+        subject's uuid
+    trial_id : str
+        trial's id
+    plot : bool
+        flag to plot the eeg data of each channel
+
+    Returns
+    -------
+    subj_trial : load_eeg.Subj
+        class instance of the load_eeg.Subj with all attributes added
+    """
     subj_trial = load_eeg.Subj(subj_id)
     subj_trial.add_trialpath(trial_id)
     subj_trial.read_events()
@@ -25,6 +41,24 @@ def load_all_subjs_epochs(subj_id, trial_id, plot=False):
 
 
 def combine_subj_data(subjs, save=False):
+    """Combines the subject data in pandas dataframes.
+
+    Parameters
+    ----------
+    subjs : list
+        all of the subjects' uuids to be combined
+    save : bool
+        flag to export dataframes as .csv
+
+    Returns
+    -------
+    control_df : pandas.DataFrame
+        eeg data of all subjects from trials 1 & 6
+    epochs_df : pandas.DataFrame
+        eeg data of all subjects from trials 2 - 5 during the interventions
+    post_epochs_df : pandas.DataFrame
+        eeg data of all subjects from trials 2 - 5 immediately following the interventions
+    """
     trials = ['task-run1', 'task-run2', 'task-run3', 'task-run4', 'task-run5', 'task-run6']
     
     control_df = pd.DataFrame()

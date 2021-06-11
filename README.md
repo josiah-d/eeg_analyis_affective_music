@@ -115,13 +115,11 @@ Note: All sensor plots are in `img/histograms`.
 
 ## Statistics
 
-The null hypothesis, H<sub>0</sub>, states that there is no discernible difference between the `control` and `epochs` data. 
+The null hypothesis, H<sub>0</sub>, states that there is no discernible difference between the `control` and `epochs` data. H<sub>A</sub> is that there measurable, statistically significant difference between the two groups of EEGs.
 
-H<sub>0</sub> = `control` == `epochs`
+A significance level of 0.05 was used to assess the p-values; however, since 19 hypothesis tests would be computed, due to the number of electrodes, a Bonferroni correction was used which established &alpha; of 0.0025. 
 
-A significance level of 0.01 was used to assess the p-values; however, since 19 hypothesis tests would be computed, due to the number of electrodes, a Bonferroni correction was used which established &alpha; of 0.0005. 
-
-An unequal variances t-test was conducted on all sensors from the `control` data against the `epochs` data. All of the p-values were greatly less than &alpha;=0.0005 with most being zero during to the memory limitations of python. The power of each of these tests was 1.0 and both the absolute effect size and the relative effect size were calculated. 
+An unequal variances t-test was conducted on all sensors from the `control` data against the `epochs` data. All of the p-values were greatly less than &alpha;=0.0005 with most being zero during to memory limitations. The power of each of these tests was 1.0 and both the absolute effect size and the relative effect size were calculated. 
 
 **Table 1: Hypothesis Testing Results**
 
@@ -322,7 +320,7 @@ The relative effect size is most notable on electrodes `F7`, `F8`, and `Pz`.
 
 ## Conclusions
 
-The null hypothesis can be rejected indicating that when affective music is played it causes brain wave changes that are detectible by an EEG. 
+The null hypothesis can be rejected indicating that when affective music is played it causes brain wave changes that are detectible by an EEG. More specifically, each electrode can be used to assess whether affective music is being listened to. However, these results only pertain to when EEG data is used in aggregate across numerous subjects and trials. This conclusion may not apply at the individual level.
 
 ---
 

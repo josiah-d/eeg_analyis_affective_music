@@ -8,6 +8,7 @@ import seaborn as sn
 
 from src import load_eeg, load_subjs
 
+# set plot style
 plt.rcParams['font.serif'] = 'Ubuntu'
 plt.rcParams['font.monospace'] = 'Ubuntu Mono'
 plt.rcParams['font.size'] = 10
@@ -20,10 +21,42 @@ plt.rcParams['figure.titlesize'] = 12
 
 
 def plot_epoch(ax, start, stop, label='_nolegend_'):
+    """Plots a red bar over the intervention.
+
+    Parameters
+    ----------
+    ax : matplotlib.axes._subplots.AxesSubplot
+        subplot to be plotted on
+    start : int
+        x value to begin the bar
+    stop : int
+        x value to end the bar
+    label : str
+        text label for the legend
+
+    Returns
+    -------
+    epoch plot : method
+        a red, translucent bar spanning the entire y axis and between the start, stop values on the x axis
+        """
     return ax.axvspan(start, stop, facecolor='#990000', alpha=0.1, label=label)
 
 
 def all_leads(subj, epochs=[]):
+    """Stacked line plot of all electrodes.
+
+    Parameters
+    ----------
+    subj : load_eeg.Subj
+        class instance of the load_eeg.Subj with all attributes added
+    epochs : list
+        array of the start of each intervention
+
+    Returns
+    -------
+    None
+    """
+
     fig, ax = plt.subplots(19, sharex='all', figsize=(16, 9))
     fig.suptitle(f'EEG Data\nSubject: {subj.subj_id}\nTrial: {subj.trial_id}')
     
@@ -46,6 +79,17 @@ def all_leads(subj, epochs=[]):
 
 
 def plot_corrs(subj_id):
+    """Correlation heatmap of an individual.
+
+    Parameters
+    ----------
+    subj_id : str
+        subject's uuid
+
+    Returns
+    -------
+    None
+    """
     trials = ['task-run1', 'task-run2', 'task-run3', 'task-run4', 'task-run5', 'task-run6']
     control_df = pd.DataFrame()
     epochs_df = pd.DataFrame()
@@ -85,6 +129,17 @@ def plot_corrs(subj_id):
 
 
 def plot_corrs_all(subjs):
+    """Correlation heatmap of all subjects.
+
+    Parameters
+    ----------
+    subjs : list
+        all of the subjects' uuids to be combined
+
+    Returns
+    -------
+    None
+    """
     control_df, epochs_df, post_epochs_df = load_subjs.combine_subj_data(subjs)
     
     fig, ax = plt.subplots(3, figsize=(5,15))
@@ -101,6 +156,31 @@ def plot_corrs_all(subjs):
 
 
 def eeg_hist(ax, data, x_min, x_max, y_lab, title, label=None, line_label=None):
+    """Histogram of an electrode voltages.
+
+    Parameters
+    ----------
+    ax : matplotlib.axes._subplots.AxesSubplot
+        subplot to be plotted on
+    data : array
+        Must be array-like object, e.g. list, numpy.array, pandas.Series
+    x_min : float
+        set minimum value for the plot's x axis
+    x_max : float
+        set maximum value for the plot's x axis
+    y_lab : str
+        text label for the legend
+    title : str
+        title of the subplot
+    label : str
+        text label for the legend
+    line_label : str
+        text label for the legend
+
+    Returns
+    -------
+    None
+    """
     ax.hist(data, bins=500, stacked=True, label=label)
     ax.axvline(data.mean(), ymin=0, ymax=1, color='black', label=line_label)
     ax.set_xlim(x_min, x_max)
