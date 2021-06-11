@@ -318,6 +318,7 @@ The null hypothesis can be rejected indicating that when affective music is play
 * Analyze by stated response to affective music exposure
 * Explore sentiment analysis & emotional response to affective music
 * EDA of STD, rate of change, skew, cartesian distance
+* Group data by age
 * Separate data by sex
 * Normalize data
 
