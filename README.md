@@ -43,14 +43,15 @@ There were 31 subjects (18 female, 13 male; mean age of 39.13 ± 14.48; age rang
 
 The first and sixth EEGs were used as controls while the second to fifth had interventions. The intervention was an exposure to the a selection of affective music. The music was obtained from the work of [Eerola and Vuoskoski](https://journals.sagepub.com/doi/10.1177/0305735610362821). During trials 2-5, the subject listened to 10, 20 second blocks of affective music and were asked varied questions regarding their emotional reaction to the music. 
 
-* 31 Subjects
-* 6 EEGs
-* 300 - 600 secs
-* Sampling rate: 1000 Hz
-* 19 electrodes
-* ~1,750,000,000 data points
-
 The data was mainly in a European Data Format (EDF) which is a common file format for the exchange and storage of medical time series data. In addition, there was JavaScript Object Notation (JSON) and Comma-Separated Values (CSV) files that contained metadata and definitions of the codes used in the metadata.
+
+* Summary
+  * 31 Subjects
+  * 6 EEGs
+  * 300 - 600 secs
+  * Sampling rate: 1000 Hz
+  * 19 electrodes
+  * ~1,750,000,000 data points
 
 ---
 
