@@ -47,9 +47,10 @@ Josiah Duhaime
 
 ## Next Steps
 
-* Separate by sex
-* Normalize data
-* Explore sentiment analysis/emotional response to music
+* Separate by Sex
+* Normalize Data
+* Explore Sentiment Analysis & Emotional Response to Music
+* EDA of STD, Rate of Change, Skew, Cartesian Distance
 
 ---
 
