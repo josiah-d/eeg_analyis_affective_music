@@ -11,6 +11,7 @@ Josiah Duhaime
 * [Data](##Data)
 * [Data Visualizations](##Data-Visualizations)
 * [Statistics](##Statistics)
+* [Conclusions](##Conclusions)
 * [Next Steps](##Next-Steps)
 * [References](References)
 
@@ -66,15 +67,258 @@ The data was mainly in a European Data Format (EDF) which is a common file forma
 
 ## Data Visualization
 
-Initially, each subjects' data was plotted to assess the quality and shape of the sensor data.
+Initially, each subjects' data was plotted to assess the quality and shape of the sensor data. In Figure 1, the EEG data is plotted for each sensor. Figure 2 is comparable; however, there are red bars overlayed during the epochs where affective music was played for the subject.
 
 ![Subj 1, Trial 1](img/all_leads/all_leads_sub-01_task-run1.jpg)
 
-Figure 1: EEG Data, Subject: sub-01, Trial: task-run1
+**Figure 1: EEG Data, Subject: sub-01, Trial: task-run1**
+
+![Subj 1, Trial 2](img/all_leads/all_leads_sub-01_task-run2.jpg)
+
+**Figure 2: EEG Data, Subject: sub-01, Trial: task-run2**
+
+There were no significant holes or perturbations noted in the data.
+
+Note: All subject and trial EEG plots are in `img/all_leads`.
+
+The data was then parsed to three bins. The `control` data was all of the EEG data from trials 1 and 6. Similarly, `epochs` is the data from each of the red shaded regions and `post_epochs` is the 20 sec segment immediately following the affective music intervention. The `post_epochs` data was parse to assess for a lingering effect of the affective music. 
+
+Then, correlation heat maps were used to assess the interactions between each of the sensors for each group.
+
+![Subj All, Trial All](img/correlations/correlations_all.jpg)
+
+**Figure 3: Correlation of EEG Data, Subject: All, Trial: All**
+
+The `control` data is labeled `Without Music`. This plot was used as the baseline. The `epochs` data is labeled `During Music (20s)` and shows a marked loss of correlation across sensor `T3` and lesser so across `Cz`. This seemed to persist in the data from `post_epochs` labels `Immediately Following Music (20s)`.
+
+In the aggregated data, there were no negatively correlated regions. However, there were sensors in the individual data that were strongly negatively correlated. For instance, subject 29 had a marked loss of correlation numerous sensors and a gain in correlation in others which seems to be persistent.
+
+![Subj 29, Trial All](img/correlations/correlations_sub-29.jpg)
+
+**Figure 4: Correlation of EEG Data, Subject: 29, Trial: All**
+
+Note: All subject and trial correlation EEG plots are in `img/correlations`.
+
+Lastly, histograms for each category, e.g. `control`, `epochs`, `post_epochs`, were plotted as a stacked histogram with the mean noted. The `control` data has a more central tendency while the `epochs` data is shifted negatively. The `post_epochs` data is still shifted negatively but seems to be beginning to normalize. Additionally, the plots suggest that there is a positive skew.
+
+![EEG Voltage](img/histograms/grouped_eeg_voltages.jpg)
+
+**Figure 5: Histogram of EEG Sensors, Subject: All, Trial: All**
+
+Note: All sensor plots are in `img/histograms`.
 
 ---
 
 ## Statistics
+
+The null hypothesis, H<sub>0</sub>, states that there is no discernible difference between the `control` and `epochs` data. 
+
+H<sub>0</sub> = `control` == `epochs`
+
+A significance level of 0.01 was used to assess the p-values; however, since 19 hypothesis tests would be computed, a Bonferroni correction was used which established &alpha; as 0.0005. 
+
+A T Test was conducted on all sensors from the `control` data against the `epochs` data. All of the p-values were greatly less than &alpha;=0.0005 with most being zero during to the memory limitations of python. The power of each of these tests was 1.0 and both the absolute effect size and the relative effect size were calculated. 
+
+**Table 1: Hypothesis Testing Results**
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>t</th>
+      <th>p</th>
+      <th>sig</th>
+      <th>power</th>
+      <th>abs_effect_size</th>
+      <th>relev_effect_size</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>FP1</th>
+      <td>62.358931</td>
+      <td>0.000000e+00</td>
+      <td>True</td>
+      <td>1.0</td>
+      <td>0.000013</td>
+      <td>-0.440880</td>
+    </tr>
+    <tr>
+      <th>FP2</th>
+      <td>132.347907</td>
+      <td>0.000000e+00</td>
+      <td>True</td>
+      <td>1.0</td>
+      <td>0.000025</td>
+      <td>-1.677738</td>
+    </tr>
+    <tr>
+      <th>F7</th>
+      <td>62.930092</td>
+      <td>0.000000e+00</td>
+      <td>True</td>
+      <td>1.0</td>
+      <td>0.000008</td>
+      <td>2.582388</td>
+    </tr>
+    <tr>
+      <th>F3</th>
+      <td>24.890371</td>
+      <td>1.169934e-136</td>
+      <td>True</td>
+      <td>1.0</td>
+      <td>0.000002</td>
+      <td>-0.060947</td>
+    </tr>
+    <tr>
+      <th>Fz</th>
+      <td>-61.355396</td>
+      <td>0.000000e+00</td>
+      <td>True</td>
+      <td>1.0</td>
+      <td>-0.000005</td>
+      <td>0.175469</td>
+    </tr>
+    <tr>
+      <th>F4</th>
+      <td>139.590200</td>
+      <td>0.000000e+00</td>
+      <td>True</td>
+      <td>1.0</td>
+      <td>0.000013</td>
+      <td>-0.829454</td>
+    </tr>
+    <tr>
+      <th>F8</th>
+      <td>146.449168</td>
+      <td>0.000000e+00</td>
+      <td>True</td>
+      <td>1.0</td>
+      <td>0.000017</td>
+      <td>13.290460</td>
+    </tr>
+    <tr>
+      <th>T3</th>
+      <td>-22.446353</td>
+      <td>1.776391e-111</td>
+      <td>True</td>
+      <td>1.0</td>
+      <td>-0.000011</td>
+      <td>-0.579437</td>
+    </tr>
+    <tr>
+      <th>C3</th>
+      <td>51.283345</td>
+      <td>0.000000e+00</td>
+      <td>True</td>
+      <td>1.0</td>
+      <td>0.000004</td>
+      <td>-0.186249</td>
+    </tr>
+    <tr>
+      <th>Cz</th>
+      <td>-52.205131</td>
+      <td>0.000000e+00</td>
+      <td>True</td>
+      <td>1.0</td>
+      <td>-0.000004</td>
+      <td>0.200423</td>
+    </tr>
+    <tr>
+      <th>C4</th>
+      <td>70.062581</td>
+      <td>0.000000e+00</td>
+      <td>True</td>
+      <td>1.0</td>
+      <td>0.000005</td>
+      <td>-0.959366</td>
+    </tr>
+    <tr>
+      <th>T4</th>
+      <td>137.077588</td>
+      <td>0.000000e+00</td>
+      <td>True</td>
+      <td>1.0</td>
+      <td>0.000013</td>
+      <td>-1.724223</td>
+    </tr>
+    <tr>
+      <th>T5</th>
+      <td>46.478751</td>
+      <td>0.000000e+00</td>
+      <td>True</td>
+      <td>1.0</td>
+      <td>0.000005</td>
+      <td>-0.523513</td>
+    </tr>
+    <tr>
+      <th>P3</th>
+      <td>125.714777</td>
+      <td>0.000000e+00</td>
+      <td>True</td>
+      <td>1.0</td>
+      <td>0.000010</td>
+      <td>-0.767292</td>
+    </tr>
+    <tr>
+      <th>Pz</th>
+      <td>38.873714</td>
+      <td>0.000000e+00</td>
+      <td>True</td>
+      <td>1.0</td>
+      <td>0.000003</td>
+      <td>2.703736</td>
+    </tr>
+    <tr>
+      <th>P4</th>
+      <td>42.286457</td>
+      <td>0.000000e+00</td>
+      <td>True</td>
+      <td>1.0</td>
+      <td>0.000004</td>
+      <td>-0.271190</td>
+    </tr>
+    <tr>
+      <th>T6</th>
+      <td>168.623868</td>
+      <td>0.000000e+00</td>
+      <td>True</td>
+      <td>1.0</td>
+      <td>0.000014</td>
+      <td>1.299559</td>
+    </tr>
+    <tr>
+      <th>O1</th>
+      <td>116.846661</td>
+      <td>0.000000e+00</td>
+      <td>True</td>
+      <td>1.0</td>
+      <td>0.000012</td>
+      <td>0.876514</td>
+    </tr>
+    <tr>
+      <th>O2</th>
+      <td>48.706708</td>
+      <td>0.000000e+00</td>
+      <td>True</td>
+      <td>1.0</td>
+      <td>0.000005</td>
+      <td>0.413585</td>
+    </tr>
+  </tbody>
+</table>
+
+![Relative Effect & T Statistics](img/relev_effect_size_t_stat.jpg)
+
+**Figure 5: Relative Effect Size & T Statistics**
+
+The relative effect size is most notable on electrodes `F7`, `F8`, and `Pz`.
+
+---
+
+## Conclusions
+
+The null hypothesis can be rejected indicating that when affective music is played it causes brain wave changes that are detectible by an EEG. 
 
 ---
 
@@ -82,10 +326,10 @@ Figure 1: EEG Data, Subject: sub-01, Trial: task-run1
 
 * Analyze by the type of music
 * Analyze by stated response to music
-* Separate by Sex
-* Normalize Data
-* Explore Sentiment Analysis & Emotional Response to Music
-* EDA of STD, Rate of Change, Skew, Cartesian Distance
+* Separate by sex
+* Normalize data
+* Explore sentiment analysis & emotional response to music
+* EDA of STD, rate of change, skew, cartesian distance
 
 ---
 
