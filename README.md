@@ -71,7 +71,7 @@ There were no significant holes or perturbations noted in the data.
 
 Note: All subject and trial EEG plots are in `img/all_leads`.
 
-The data was then parsed to three bins. The `control` data was all of the EEG data from trials 1 and 6. Similarly, `epochs` is the data from each of the red shaded regions and `post_epochs` is the 20 sec segment immediately following the affective music intervention. The `post_epochs` data was parse to assess for a lingering effect of the affective music. 
+The data was then parsed to three bins. The `control` data was all of the EEG data from trials 1 and 6. Similarly, `epochs` is the data from each of the red shaded regions and `post_epochs` is the 20 sec segment immediately following the affective music intervention. The `post_epochs` data was parsed to assess for a lingering effect of the affective music. 
 
 Then, correlation heat maps were used to assess the interactions between each of the sensors for each group.
 
@@ -79,9 +79,9 @@ Then, correlation heat maps were used to assess the interactions between each of
 
 **Figure 3: Correlation of EEG Data, Subject: All, Trial: All**
 
-The `control` data is labeled `Without Music`. This plot was used as the baseline. The `epochs` data is labeled `During Music (20s)` and shows a marked loss of correlation across sensor `T3` and lesser so across `Cz`. This seemed to persist in the data from `post_epochs` labels `Immediately Following Music (20s)`.
+The `control` data is labeled `Without Music`. This plot was used as the baseline. The `epochs` data is labeled `During Music (20s)` and shows a marked loss of correlation across sensor `T3` and lesser so across `Cz` as well as an increase in correlation in the upper right and lower left regions. This seemed to persist in the data from `post_epochs` labeled `Immediately Following Music (20s)`.
 
-In the aggregated data, there were no negatively correlated regions. However, there were sensors in the individual data that were strongly negatively correlated. For instance, subject 29 had a marked loss of correlation numerous sensors and a gain in correlation in others which seems to be persistent.
+In the aggregated data, there were no negatively correlated regions. However, there were sensors in the individual data that were strongly negatively correlated. For instance, subject 29 had a marked loss of correlation across numerous electrodes and a gain in correlation in others which seems to be persistent.
 
 ![Subj 29, Trial All](img/correlations/correlations_sub-29.jpg)
 
@@ -89,7 +89,7 @@ In the aggregated data, there were no negatively correlated regions. However, th
 
 Note: All subject and trial correlation EEG plots are in `img/correlations`.
 
-Lastly, histograms for each category, e.g. `control`, `epochs`, `post_epochs`, were plotted as a stacked histogram with the mean noted. The `control` data has a more central tendency while the `epochs` data is shifted negatively. The `post_epochs` data is still shifted negatively but seems to be beginning to normalize. Additionally, the plots suggest that there is a positive skew.
+Lastly, histograms for each category, e.g. `control`, `epochs`, `post_epochs`, were plotted as a stacked histogram with the mean noted. The `control` data has a more central tendency while the `epochs` data is shifted negatively. The `post_epochs` data is still shifted negatively but seems to be beginning to normalize. Additionally, the plots suggest that there is a positive skew during and after exposure to affective music.
 
 ![EEG Voltage](img/histograms/grouped_eeg_voltages.jpg)
 
@@ -105,9 +105,9 @@ The null hypothesis, H<sub>0</sub>, states that there is no discernible differen
 
 H<sub>0</sub> = `control` == `epochs`
 
-A significance level of 0.01 was used to assess the p-values; however, since 19 hypothesis tests would be computed, a Bonferroni correction was used which established &alpha; as 0.0005. 
+A significance level of 0.01 was used to assess the p-values; however, since 19 hypothesis tests would be computed, due to the number of electrodes, a Bonferroni correction was used which established &alpha; as 0.0005. 
 
-A T Test was conducted on all sensors from the `control` data against the `epochs` data. All of the p-values were greatly less than &alpha;=0.0005 with most being zero during to the memory limitations of python. The power of each of these tests was 1.0 and both the absolute effect size and the relative effect size were calculated. 
+An unequal variances t-test was conducted on all sensors from the `control` data against the `epochs` data. All of the p-values were greatly less than &alpha;=0.0005 with most being zero during to the memory limitations of python. The power of each of these tests was 1.0 and both the absolute effect size and the relative effect size were calculated. 
 
 **Table 1: Hypothesis Testing Results**
 
@@ -314,12 +314,12 @@ The null hypothesis can be rejected indicating that when affective music is play
 
 ## Next Steps
 
-* Analyze by the type of music
-* Analyze by stated response to music
-* Separate by sex
-* Normalize data
-* Explore sentiment analysis & emotional response to music
+* Analyze by the type of affective music
+* Analyze by stated response to affective music exposure
+* Explore sentiment analysis & emotional response to affective music
 * EDA of STD, rate of change, skew, cartesian distance
+* Separate data by sex
+* Normalize data
 
 ---
 
