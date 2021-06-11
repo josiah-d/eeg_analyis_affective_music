@@ -4,17 +4,6 @@ Josiah Duhaime
 
 ---
 
-## Table of Contents
-
-* [Background](##Background)
-* [Goals](##Goals)
-* [Data](##Data)
-* [Data Visualizations](##Data-Visualizations)
-* [Statistics](##Statistics)
-* [Conclusions](##Conclusions)
-* [Next Steps](##Next-Steps)
-* [References](References)
-
 ## Background
 
 Electroencephalography (EEG) is a non-invasive means of measuring elctrical activity, e.g. excitatory postsynaptic potential and inhibitory postsynaptic potentials, on the scalp which represents the macro electrical activity of the cerebral cortex. More simply, EEGs measure depolarizations and hyperpolarizations across a brain region and between electrodes.
