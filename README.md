@@ -6,13 +6,13 @@ Josiah Duhaime
 
 ## Background
 
-Electroencephalography (EEG) is a non-invasive means of measuring elctrical activity, e.g. excitatory postsynaptic potential, inhibitory postsynaptic potentials, on the scalp which represents the macro electrical activity of the cerebral cortex. More simply, EEGs measure depolarizations and hyperpolarizations across a brain region and between electrodes.
+Electroencephalography (EEG) is a non-invasive means of measuring electrical activity, e.g. excitatory postsynaptic potential, inhibitory postsynaptic potentials, on the scalp which represents the macro electrical activity of the cerebral cortex. More simply, EEGs measure depolarizations and hyperpolarizations across a brain region and between electrodes.
 
 Each electrode used during an EEG has a particular naming convention. Here is a simplified version of the rules:
 
 * Even electrodes are on the right
 * Odd electrodes are on the left
-* z is used to denote a mid sagittal electrode
+* z is used to denote a midsagittal electrode
 * A letter code denotes the region of the brain
     * Pre-frontal: Fp
     * Frontal: F
@@ -37,11 +37,25 @@ There are several standards for collecting EEG data. One such is called the Stan
 
 ## Data
 
-The [data](https://openneuro.org/datasets/ds002721/versions/1.0.0) obtained from the work of Nicoletta Nicolaou (creator), Ian Daly (creator), Slawomir Nasuto (principle investigator) and others which can be obtained through [brainlife](https://brainlife.io/).
+The [data](https://openneuro.org/datasets/ds002721/versions/1.0.0), ~3.5 gb, obtained from the work of Nicoletta Nicolaou (creator), Ian Daly (creator), Slawomir Nasuto (principal investigator) and others which can be obtained through [brainlife](https://brainlife.io/).
+
+
+#### AWS Download
+
+`aws s3 sync --no-sign-request s3://openneuro.org/ds002721 ds002721-download/`
+
+#### DataLad
+
+`datalad install https://github.com/OpenNeuroDatasets/ds002721.git`
+
+#### Node.js
+
+`openneuro download --snapshot 1.0.0 ds002721 ds002721-download/`
+
 
 There were 31 subjects (18 female, 13 male; mean age of 39.13 ± 14.48; age range 18-66) who were involved in this study to provide EEG data. Each subject conducted six EEGs, less subject 6 who was unable to perform the sixth EEG due to a non-disclosed reason. 
 
-The first and sixth EEGs were used as controls while the second to fifth had interventions. The intervention was an exposure to the a selection of affective music. The music was obtained from the work of [Eerola and Vuoskoski](https://journals.sagepub.com/doi/10.1177/0305735610362821). During trials 2-5, the subject listened to 10, 20 second blocks of affective music and were asked varied questions regarding their emotional reaction to the music. 
+The first and sixth EEGs were used as controls while the second to the fifth had interventions. The intervention was an exposure to a selection of affective music. The music was obtained from the work of [Eerola and Vuoskoski](https://journals.sagepub.com/doi/10.1177/0305735610362821). During trials 2-5, the subject listened to 10, 20-second blocks of affective music and were asked varied questions regarding their emotional reaction to the music. 
 
 The data was mainly in a European Data Format (EDF) which is a common file format for the exchange and storage of medical time series data. In addition, there was JavaScript Object Notation (JSON) and Comma-Separated Values (CSV) files that contained metadata and definitions of the codes used in the metadata.
 
@@ -57,7 +71,7 @@ The data was mainly in a European Data Format (EDF) which is a common file forma
 
 ## Data Visualization
 
-Initially, each subjects' data was plotted to assess the quality and shape of the sensor data. In Figure 1, the EEG data is plotted for each sensor. Figure 2 is comparable; however, there are red bars overlayed during the epochs where affective music was played for the subject.
+Initially, each subjects' data were plotted to assess the quality and shape of the sensor data. In Figure 1, the EEG data is plotted for each sensor. Figure 2 is comparable; however, there are red bars overlayed during the epochs where affective music was played for the subject.
 
 ![Subj 1, Trial 1](img/all_leads/all_leads_sub-01_task-run1.jpg)
 
@@ -71,7 +85,7 @@ There were no significant holes or perturbations noted in the data.
 
 Note: All subject and trial EEG plots are in `img/all_leads`.
 
-The data was then parsed to three bins. The `control` data was all of the EEG data from trials 1 and 6. Similarly, `epochs` is the data from each of the red shaded regions and `post_epochs` is the 20 sec segment immediately following the affective music intervention. The `post_epochs` data was parsed to assess for a lingering effect of the affective music. 
+The data was then parsed into three bins. The `control` data was all of the EEG data from trials 1 and 6. Similarly, `epochs` is the data from each of the red shaded regions and `post_epochs` is the 20-sec segment immediately following the affective music intervention. The `post_epochs` data was parsed to assess for a lingering effect of the affective music. 
 
 Then, correlation heat maps were used to assess the interactions between each of the sensors for each group.
 
@@ -81,7 +95,7 @@ Then, correlation heat maps were used to assess the interactions between each of
 
 The `control` data is labeled `Without Music`. This plot was used as the baseline. The `epochs` data is labeled `During Music (20s)` and shows a marked loss of correlation across sensor `T3` and lesser so across `Cz` as well as an increase in correlation in the upper right and lower left regions. This seemed to persist in the data from `post_epochs` labeled `Immediately Following Music (20s)`.
 
-In the aggregated data, there were no negatively correlated regions. However, there were sensors in the individual data that were strongly negatively correlated. For instance, subject 29 had a marked loss of correlation across numerous electrodes and a gain in correlation in others which seems to be persistent.
+In the aggregated data, there were no negatively correlated regions. However, there were sensors in the individual data that were strongly negatively correlated. For instance, subject 29 had a marked inverse correlation across numerous electrodes and an increase in correlation in others which seems to be persistent.
 
 ![Subj 29, Trial All](img/correlations/correlations_sub-29.jpg)
 
@@ -105,7 +119,7 @@ The null hypothesis, H<sub>0</sub>, states that there is no discernible differen
 
 H<sub>0</sub> = `control` == `epochs`
 
-A significance level of 0.01 was used to assess the p-values; however, since 19 hypothesis tests would be computed, due to the number of electrodes, a Bonferroni correction was used which established &alpha; as 0.0005. 
+A significance level of 0.01 was used to assess the p-values; however, since 19 hypothesis tests would be computed, due to the number of electrodes, a Bonferroni correction was used which established &alpha; of 0.0005. 
 
 An unequal variances t-test was conducted on all sensors from the `control` data against the `epochs` data. All of the p-values were greatly less than &alpha;=0.0005 with most being zero during to the memory limitations of python. The power of each of these tests was 1.0 and both the absolute effect size and the relative effect size were calculated. 
 
@@ -315,7 +329,7 @@ The null hypothesis can be rejected indicating that when affective music is play
 ## Next Steps
 
 * Analyze by the type of affective music
-* Analyze by stated response to affective music exposure
+* Analyze by the stated response to affective music exposure
 * Explore sentiment analysis & emotional response to affective music
 * EDA of STD, rate of change, skew, cartesian distance
 * Group data by age
@@ -328,5 +342,5 @@ The null hypothesis can be rejected indicating that when affective music is play
 
 1. [Daly, I., Hallowell, J., Hwang, F., Kirke, A., Malik, A., Roesch, E., Weaver, J., Williams, D., Miranda, E., & Nasuto, S. (2014). Changes in music tempo entrain movement related brain activity. *2014 36th Annual International Conference of the IEEE Engineering in Medicine and Biology Society,* 4595-4598. doi: 10.1109/EMBC.2014.6944647](https://ieeexplore.ieee.org/document/6944647)
 1. [Daly, I., Malik, A., Hwang, F., Roesch, E., Weaver, J., Kirke, A., Williams, D., Miranda, E., & Nasuto, S. (2014). Neural correlates of emotional responses to music: An EEG study. *Neuroscience Letters, 573*, 52-57. doi: 10.1016/j.neulet.2014.05.003](https://www.sciencedirect.com/science/article/abs/pii/S030439401400367X)
-1. [Daly, Ian., Williams, D., Hallowell, J., Hwang, F., Kirke, A., Malike, A., Weaver, J,. Miranda, E., & Nasuto, S. (2015). Music-induced emotions can be predicted from a combination of brain activity and acoustic features. *Brain and Cognition, 101*, 1-11. doi: 10.1016/j.bandc.2015.08.003](https://www.sciencedirect.com/science/article/abs/pii/S0278262615300142)
-1. [Daly, I., Nicolaou, N., Williams, D., Hwang, F., Kirke, A., Miranda, E., & Nasuto, S. (2020). Neural and physiological data from participants listening to afective music. *Scientific Data, 7*(177). doi: 10.6084/m9.figshare.12326519](https://www.nature.com/articles/s41597-020-0507-6)
+1. [Daly, Ian., Williams, D., Hallowell, J., Hwang, F., Kirke, A., Malike, A., Weaver, J., Miranda, E., & Nasuto, S. (2015). Music-induced emotions can be predicted from a combination of brain activity and acoustic features. *Brain and Cognition, 101*, 1-11. doi: 10.1016/j.bandc.2015.08.003](https://www.sciencedirect.com/science/article/abs/pii/S0278262615300142)
+1. [Daly, I., Nicolaou, N., Williams, D., Hwang, F., Kirke, A., Miranda, E., & Nasuto, S. (2020). Neural and physiological data from participants listening to affective music. *Scientific Data, 7*(177). doi: 10.6084/m9.figshare.12326519](https://www.nature.com/articles/s41597-020-0507-6)
